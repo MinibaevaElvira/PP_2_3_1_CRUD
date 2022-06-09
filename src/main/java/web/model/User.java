@@ -8,8 +8,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name="name")
     private String name;
+    @Column(name="surname")
     private String surname;
+    @Column(name="age")
     private int age;
 
     public User(int id, String name, String surname, int age) {
@@ -17,6 +20,10 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.age = age;
+    }
+
+    public User() {
+
     }
 
     public int getId() {
