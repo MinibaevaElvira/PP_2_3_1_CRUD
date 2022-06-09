@@ -10,7 +10,7 @@ public interface UserService {
     public void createUser (User user);
 
     public User findUserById (int id);
-    public List<User> update();
+    public List<User> update(int id, User user);
     public void deleteById(int id);
 
 }
