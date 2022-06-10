@@ -7,21 +7,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
-import web.service.UserServiceImpl;
 
 import javax.validation.Valid;
 
 
 @Controller
+@RequestMapping("/index")
 public class UsersControllers {
-    private UserService userService = new UserServiceImpl();
+    private UserService userService;
 
     @Autowired
     public UsersControllers(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String showAllUsers (Model model) {
         model.addAttribute("users", userService.showAllUsers());
         return "index";
@@ -29,7 +29,7 @@ public class UsersControllers {
     @GetMapping("/{id}")
     public String showUser (@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
-        return "/showUser";
+        return "/show";
     }
 
     @GetMapping("/new")
@@ -42,7 +42,7 @@ public class UsersControllers {
             return "/new";
         }
         userService.createUser(user);
-        return "redirect:/";
+        return "redirect:/index";
     }
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
@@ -51,18 +51,17 @@ public class UsersControllers {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id")int id) {
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/edit";
         }
-        userService.update(id, user);
-        return "redirect:/";
+        userService.update(user);
+        return "redirect:/index";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteById(id);
-        return "redirect:/";
+        return "redirect:/index";
     }
 }

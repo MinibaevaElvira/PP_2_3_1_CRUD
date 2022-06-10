@@ -1,11 +1,14 @@
 package web.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
+@Component
 @Table(name = "users")
 public class User {
     @Id
@@ -26,8 +29,7 @@ public class User {
     @Min(value = 0, message = "Age should be greater than 0")
     private int age;
 
-    public User(int id, String name, String surname, int age) {
-        this.id = id;
+    public User(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
