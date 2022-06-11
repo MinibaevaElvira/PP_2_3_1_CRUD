@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-
 public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
@@ -28,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update( User user) {
+    public void update(int id, User user) {
         entityManager.merge(user);
     }
 

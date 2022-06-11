@@ -26,16 +26,12 @@ public class UsersControllers {
         model.addAttribute("users", userService.showAllUsers());
         return "index";
     }
-    @GetMapping("/{id}")
-    public String showUser (@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findUserById(id));
-        return "/show";
-    }
 
     @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user) {
         return "/new";
     }
+
     @PostMapping()
     public String create(@ModelAttribute("user")@Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -44,6 +40,7 @@ public class UsersControllers {
         userService.createUser(user);
         return "redirect:/index";
     }
+
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.findUserById(id));
@@ -51,11 +48,11 @@ public class UsersControllers {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return "/edit";
         }
-        userService.update(user);
+        userService.update(id, user);
         return "redirect:/index";
     }
 

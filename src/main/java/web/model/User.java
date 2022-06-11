@@ -26,7 +26,7 @@ public class User {
     private String surname;
 
     @Column(name="age")
-    @Min(value = 0, message = "Age should be greater than 0")
+    @Min(value = 1, message = "Age should be greater than 0")
     private int age;
 
     public User(String name, String surname, int age) {
@@ -35,9 +35,7 @@ public class User {
         this.age = age;
     }
 
-    public User() {
-
-    }
+    public User() {}
 
     public int getId() {
         return id;
